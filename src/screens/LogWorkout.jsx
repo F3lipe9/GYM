@@ -113,6 +113,14 @@ export default function LogWorkout() {
         )
       })}
 
+      {entries.length === 0 && !showPicker && (
+        <div className={styles.emptyState}>
+          <DumbbellEmptyIcon />
+          <p className={styles.emptyTitle}>Ready to train?</p>
+          <p className={styles.emptyHint}>Tap ADD EXERCISE to start building your session.</p>
+        </div>
+      )}
+
       {showPicker && (
         <select
           className={styles.exSelect}
@@ -185,6 +193,14 @@ function ExerciseCard({ name, sets, firstUndoneIdx, currentPR, suggestedWeight, 
 
       <button className={styles.addSetBtn} onClick={onAddSet}>+ ADD SET</button>
     </div>
+  )
+}
+
+function DumbbellEmptyIcon() {
+  return (
+    <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M6 4v16M18 4v16M2 8h4M18 8h4M2 16h4M18 16h4"/>
+    </svg>
   )
 }
 
