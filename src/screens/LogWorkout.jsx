@@ -62,7 +62,7 @@ export default function LogWorkout() {
       .map((e) => ({
         exerciseId: e.exerciseId,
         sets: e.sets
-          .filter((s) => s.done && s.weight !== '' && s.reps !== '')
+          .filter((s) => s.weight !== '' && s.reps !== '')
           .map((s) => ({ weight: Number(s.weight), reps: Number(s.reps) })),
       }))
       .filter((e) => e.sets.length > 0)

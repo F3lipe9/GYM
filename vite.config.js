@@ -8,7 +8,7 @@ export default defineConfig({
     react(),
     VitePWA({
       registerType: 'autoUpdate',
-      includeAssets: ['icon-192.png', 'icon-512.png'],
+      includeAssets: ['logo.png'],
       manifest: {
         name: 'GymLog',
         short_name: 'GymLog',
@@ -18,8 +18,8 @@ export default defineConfig({
         display: 'standalone',
         start_url: '/GYM/',
         icons: [
-          { src: '/GYM/icon-192.png', sizes: '192x192', type: 'image/png' },
-          { src: '/GYM/icon-512.png', sizes: '512x512', type: 'image/png', purpose: 'any maskable' }
+          { src: '/GYM/logo.png', sizes: '192x192', type: 'image/png' },
+          { src: '/GYM/logo.png', sizes: '512x512', type: 'image/png', purpose: 'any maskable' }
         ]
       },
       workbox: {
