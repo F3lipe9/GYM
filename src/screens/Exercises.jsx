@@ -64,7 +64,10 @@ export default function Exercises() {
     return groups
   }, [state.exercises, search])
 
-  const categories = CATEGORY_ORDER.filter(c => grouped[c])
+  const categories = [
+    ...CATEGORY_ORDER.filter((c) => grouped[c]),
+    ...Object.keys(grouped).filter((c) => !CATEGORY_ORDER.includes(c)).sort(),
+  ]
 
   return (
     <div className={styles.page}>

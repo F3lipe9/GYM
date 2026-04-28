@@ -4,23 +4,19 @@ export const DEFAULT_EXERCISES = [
   { name: 'Dumbbell Bench', category: 'Chest', equipment: 'Dumbbell', type: 'Compound'},
   { name: 'Incline Dumbbell', category: 'Chest', equipment: 'Dumbbell', type: 'Compound'},
   { name: 'Pec Fly', category: 'Chest', equipment: 'Machine', type: 'Isolation'},
-
   { name: 'Shoulder Press', category: 'Shoulder', equipment: 'Dumbbell', type: 'Compound'},
   { name: 'Lat Raise Machine', category: 'Shoulder', equipment: 'Machine', type: 'Isolation'},
   { name: 'Lat Raise Cable', category: 'Shoulder', equipment: 'Cable', type: 'Isolation'},
-
   { name: 'Tricep Extension', category: 'Tricep', equipment: 'Cable', type: 'Isolation'},
   { name: 'Tricep Rope', category: 'Tricep', equipment: 'Cable', type: 'Isolation'},
   { name: 'JM Press', category: 'Tricep', equipment: 'Machine', type: 'Isolation'},
   { name: 'Tricep Machine', category: 'Tricep', equipment: 'Machine', type: 'Isolation'},
-
   { name: 'Lying Curl', category: 'Bicep', equipment: 'Dumbbell', type: 'Isolation'},
   { name: 'Lying Hammer Curl', category: 'Bicep', equipment: 'Dumbbell', type: 'Isolation'},
   { name: 'Straight Bar Curl', category: 'Bicep', equipment: 'Barbell', type: 'Compound'},
   { name: 'Reverse Curl', category: 'Bicep', equipment: 'Cable', type: 'Compound'},
   { name: 'Rope Hammer Curl', category: 'Bicep', equipment: 'Cable', type: 'Compound'},
   { name: 'Behind Curl', category: 'Bicep', equipment: 'Cable', type: 'Isolation'},
-
   { name: 'Pull Up', category: 'Back', equipment: 'Free', type: 'Compound'},
   { name: 'Lat Pulldown', category: 'Back', equipment: 'Machine', type: 'Compound'},
   { name: 'Lat Pullover', category: 'Back', equipment: 'Cable', type: 'Isolation'},
@@ -29,7 +25,6 @@ export const DEFAULT_EXERCISES = [
   { name: 'Kelso', category: 'Back', equipment: 'Machine', type: 'Isolation'},
   { name: 'Rear Delt Fly', category: 'Back', equipment: 'Machine', type: 'Isolation'},
   { name: 'Face Pull', category: 'Back', equipment: 'Cable', type: 'Compound'},
-
   { name: 'Squat', category: 'Legs', equipment: 'Barbell', type: 'Compound'},
   { name: 'Leg Press', category: 'Legs', equipment: 'Machine', type: 'Compound'},
   { name: 'RDL', category: 'Legs', equipment: 'Barbell', type: 'Compound'},
@@ -37,7 +32,7 @@ export const DEFAULT_EXERCISES = [
   { name: 'Leg Curl', category: 'Legs', equipment: 'Machine', type: 'Compound'},
   { name: 'Calf Raises', category: 'Legs', equipment: 'Machine', type: 'Isolation'},
   { name: 'Hip Abductor', category: 'Legs', equipment: 'Machine', type: 'Isolation'},
-  { name: 'Hip Adductor', category: 'Legs', equipment: 'Machine', type: 'Isolation'},
+  { name: 'Hip Adductor', category: 'Legs', equipment: 'Machine', type: 'Isolation'}
 
 ].map((ex, i) => ({
   id: `default_${i}`,
