@@ -35,20 +35,8 @@ export function AppProvider({ children }) {
   useEffect(() => {
     const workouts = load('workouts', [])
     const stored = load('exercises', null)
-    let exercises
-    if (!Array.isArray(stored) || stored.length === 0) {
-      exercises = DEFAULT_EXERCISES
-      save('exercises', exercises)
-    } else {
-      const defaultMeta = Object.fromEntries(DEFAULT_EXERCISES.map((exercise) => [exercise.id, exercise]))
-      const storedById = new Map(stored.map((exercise) => [exercise.id, exercise]))
-      const defaultExercises = DEFAULT_EXERCISES.map((exercise) => {
-        const savedExercise = storedById.get(exercise.id)
-        return savedExercise && savedExercise.isDefault ? { ...exercise, ...savedExercise } : exercise
-      })
-      const customExercises = stored.filter((exercise) => !exercise.isDefault || !defaultMeta[exercise.id])
-      exercises = [...defaultExercises, ...customExercises]
-    }
+    const customExercises = Array.isArray(stored) ? stored.filter((e) => !e.isDefault) : []
+    const exercises = [...DEFAULT_EXERCISES, ...customExercises]
     const bodyweight = load('bodyweight', [])
     dispatch({ type: 'INIT', payload: { workouts, exercises, bodyweight } })
   }, [])
