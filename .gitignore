@@ -34,3 +34,6 @@ pnpm-debug.log*
 
 # Claude
 .claude/
+
+# Stitch
+stitch_minimalist_workout_progress_tracker
