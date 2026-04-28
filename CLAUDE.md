@@ -138,10 +138,10 @@ Lateral Raise, Face Pull
 - [ ] Test "Add to Home Screen" on mobile
 
 ### Phase 5 — Polish & Deploy
-- [ ] Mobile-first responsive layout
-- [ ] Bottom navigation bar (Log, History, Progress, Exercises)
-- [ ] Empty states for all screens
-- [ ] Push to GitHub, enable GitHub Pages
+- [x] Mobile-first responsive layout
+- [x] Bottom navigation bar (Log, History, Progress, Exercises)
+- [x] Empty states for all screens
+- [x] Push to GitHub, enable GitHub Pages
 - [ ] End-to-end test on phone
 
 ---
