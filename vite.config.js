@@ -16,15 +16,15 @@ export default defineConfig({
         theme_color: '#111111',
         background_color: '#111111',
         display: 'standalone',
-        start_url: '/gym/',
+        start_url: '/GYM/',
         icons: [
-          { src: '/gym/icon-192.png', sizes: '192x192', type: 'image/png' },
-          { src: '/gym/icon-512.png', sizes: '512x512', type: 'image/png', purpose: 'any maskable' }
+          { src: '/GYM/icon-192.png', sizes: '192x192', type: 'image/png' },
+          { src: '/GYM/icon-512.png', sizes: '512x512', type: 'image/png', purpose: 'any maskable' }
         ]
       },
       workbox: {
         globPatterns: ['**/*.{js,css,html,ico,png,svg,woff2}'],
-        navigateFallback: '/gym/index.html',
+        navigateFallback: '/GYM/index.html',
         navigateFallbackDenylist: [/^\/api/]
       }
     })
