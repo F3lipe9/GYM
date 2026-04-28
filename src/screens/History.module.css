@@ -1,0 +1,173 @@
+.page {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  padding: 1.25rem 1rem;
+}
+
+/* Streak card */
+.streakCard {
+  background: var(--bg-card);
+  border-radius: var(--radius);
+  padding: 1.25rem 1.25rem 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.streakLeft {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.streakLabel {
+  font-size: 0.65rem;
+  letter-spacing: 0.12em;
+  color: var(--text-muted);
+  font-weight: 700;
+}
+
+.streakValue {
+  display: flex;
+  align-items: baseline;
+  gap: 0.5rem;
+}
+
+.streakNumber {
+  font-size: 3.5rem;
+  font-weight: 800;
+  color: var(--accent);
+  line-height: 1;
+}
+
+.streakDays {
+  font-size: 0.7rem;
+  letter-spacing: 0.1em;
+  color: var(--text-muted);
+  font-weight: 700;
+}
+
+.streakIconBox {
+  width: 46px;
+  height: 46px;
+  background: var(--bg-input);
+  border-radius: var(--radius);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--accent);
+  flex-shrink: 0;
+}
+
+/* Heatmap section */
+.heatmapSection {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.sectionTitle {
+  font-size: 0.75rem;
+  letter-spacing: 0.14em;
+  color: var(--text);
+  font-weight: 800;
+}
+
+/* Empty state */
+.empty {
+  color: var(--text-muted);
+  text-align: center;
+  padding: 2rem 0;
+  font-size: 0.9rem;
+}
+
+/* Workout list */
+.workoutList {
+  display: flex;
+  flex-direction: column;
+}
+
+.workoutCard {
+  border-top: 1px solid var(--border);
+  padding: 1.1rem 0;
+}
+
+.cardHeader {
+  width: 100%;
+  background: transparent;
+  color: var(--text);
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  text-align: left;
+  gap: 0.75rem;
+  padding: 0;
+}
+
+.cardHeaderLeft {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.cardMeta {
+  font-size: 0.65rem;
+  letter-spacing: 0.08em;
+  color: var(--text-muted);
+  font-weight: 600;
+}
+
+.cardName {
+  font-size: 1.45rem;
+  font-weight: 700;
+  color: var(--text);
+  line-height: 1.2;
+}
+
+/* Expanded detail */
+.cardDetail {
+  margin-top: 1rem;
+  background: var(--bg-card);
+  border-radius: var(--radius);
+  padding: 0.25rem 0.875rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.exerciseRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.65rem 0;
+  border-bottom: 1px solid var(--border);
+  gap: 0.75rem;
+}
+
+.exerciseRow:last-of-type {
+  border-bottom: none;
+}
+
+.exName {
+  font-size: 0.9rem;
+  color: var(--text);
+}
+
+.exSets {
+  font-size: 0.9rem;
+  color: var(--accent);
+  font-weight: 700;
+  text-align: right;
+  flex-shrink: 0;
+}
+
+.deleteBtn {
+  background: transparent;
+  color: var(--text-muted);
+  border: 1px solid var(--border);
+  padding: 0.4rem 0.75rem;
+  font-size: 0.75rem;
+  align-self: flex-start;
+  border-radius: var(--radius);
+  margin: 0.75rem 0 0.25rem;
+}

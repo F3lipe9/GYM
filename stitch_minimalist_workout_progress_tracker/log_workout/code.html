@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Log Workout</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700;900&amp;family=Lexend:wght@400;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "on-secondary-container": "#b7b5b4",
+                      "surface-container-high": "#2a2a2a",
+                      "secondary-container": "#474746",
+                      "on-background": "#e2e2e2",
+                      "tertiary": "#ffffff",
+                      "on-surface-variant": "#c4c9ac",
+                      "surface-container": "#1f1f1f",
+                      "primary": "#ffffff",
+                      "surface-container-lowest": "#0e0e0e",
+                      "primary-fixed-dim": "#abd600",
+                      "on-secondary-fixed-variant": "#474746",
+                      "surface": "#131313",
+                      "on-tertiary-fixed": "#001a41",
+                      "inverse-on-surface": "#303030",
+                      "on-primary": "#283500",
+                      "inverse-primary": "#506600",
+                      "error-container": "#93000a",
+                      "primary-container": "#c3f400",
+                      "surface-dim": "#131313",
+                      "on-error-container": "#ffdad6",
+                      "surface-bright": "#393939",
+                      "secondary-fixed-dim": "#c8c6c5",
+                      "outline-variant": "#444933",
+                      "on-secondary": "#313030",
+                      "secondary": "#c8c6c5",
+                      "error": "#ffb4ab",
+                      "on-primary-fixed-variant": "#3c4d00",
+                      "tertiary-fixed-dim": "#adc6ff",
+                      "surface-container-low": "#1b1b1b",
+                      "on-surface": "#e2e2e2",
+                      "primary-fixed": "#c3f400",
+                      "outline": "#8e9379",
+                      "on-tertiary-container": "#0060cc",
+                      "on-tertiary-fixed-variant": "#004493",
+                      "surface-variant": "#353535",
+                      "on-secondary-fixed": "#1c1b1b",
+                      "background": "#131313",
+                      "on-primary-container": "#556d00",
+                      "tertiary-fixed": "#d8e2ff",
+                      "surface-tint": "#abd600",
+                      "secondary-fixed": "#e5e2e1",
+                      "on-tertiary": "#002e69",
+                      "inverse-surface": "#e2e2e2",
+                      "on-primary-fixed": "#161e00",
+                      "on-error": "#690005",
+                      "tertiary-container": "#d8e2ff",
+                      "surface-container-highest": "#353535"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.125rem",
+                      "lg": "0.25rem",
+                      "xl": "0.5rem",
+                      "full": "0.75rem"
+              },
+              "spacing": {
+                      "lg": "24px",
+                      "sm": "8px",
+                      "xl": "32px",
+                      "xs": "4px",
+                      "unit": "4px",
+                      "margin-mobile": "16px",
+                      "md": "16px",
+                      "gutter": "12px"
+              },
+              "fontFamily": {
+                      "body-lg": [
+                              "Lexend"
+                      ],
+                      "display-lg": [
+                              "Space Grotesk"
+                      ],
+                      "body-md": [
+                              "Lexend"
+                      ],
+                      "headline-lg": [
+                              "Space Grotesk"
+                      ],
+                      "data-numeric": [
+                              "Space Grotesk"
+                      ],
+                      "headline-md": [
+                              "Space Grotesk"
+                      ],
+                      "label-bold": [
+                              "Lexend"
+                      ]
+              },
+              "fontSize": {
+                      "body-lg": [
+                              "18px",
+                              {
+                                      "lineHeight": "1.5",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "display-lg": [
+                              "48px",
+                              {
+                                      "lineHeight": "1.1",
+                                      "letterSpacing": "-0.02em",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "body-md": [
+                              "16px",
+                              {
+                                      "lineHeight": "1.5",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "headline-lg": [
+                              "32px",
+                              {
+                                      "lineHeight": "1.2",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "data-numeric": [
+                              "20px",
+                              {
+                                      "lineHeight": "1.0",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "headline-md": [
+                              "24px",
+                              {
+                                      "lineHeight": "1.2",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "label-bold": [
+                              "14px",
+                              {
+                                      "lineHeight": "1.2",
+                                      "fontWeight": "600"
+                              }
+                      ]
+              }
+      },
+          },
+        }
+    </script>
+<style>
+        /* Utility for hiding number input arrows for a cleaner look */
+        input[type=number]::-webkit-inner-spin-button, 
+        input[type=number]::-webkit-outer-spin-button { 
+            -webkit-appearance: none; 
+            margin: 0; 
+        }
+        input[type=number] {
+            -moz-appearance: textfield;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-background font-body-md min-h-screen pb-24 antialiased flex flex-col">
+<!-- TopAppBar JSON Component -->
+<header class="bg-black text-[#CCFF00] font-space-grotesk font-black uppercase tracking-tighter docked full-width top-0 border-b border-b-2 border-[#1C1C1E] flat no shadows flex justify-between items-center w-full px-4 h-16 z-50 sticky">
+<button class="hover:opacity-80 active:scale-95 transition-transform flex items-center justify-center">
+<span class="material-symbols-outlined text-2xl">fitness_center</span>
+</button>
+<span class="text-2xl font-black text-[#CCFF00] tracking-widest">GYMLOG</span>
+<button class="hover:opacity-80 active:scale-95 transition-transform flex items-center justify-center">
+<span class="material-symbols-outlined text-2xl">account_circle</span>
+</button>
+</header>
+<!-- Main Canvas -->
+<main class="flex-1 w-full max-w-3xl mx-auto p-margin-mobile flex flex-col gap-xl mt-md">
+<!-- Header / Date Picker Area -->
+<section class="flex justify-between items-end border-b border-outline-variant pb-sm">
+<div>
+<h1 class="font-headline-lg text-headline-lg text-on-surface">Today's Session</h1>
+<p class="font-label-bold text-label-bold text-on-surface-variant mt-xs">OCT 24, 2023</p>
+</div>
+<button class="bg-surface-container-high text-on-surface p-sm rounded border border-outline-variant hover:bg-surface-variant active:scale-95 transition-transform flex items-center justify-center">
+<span class="material-symbols-outlined" data-icon="calendar_month">calendar_month</span>
+</button>
+</section>
+<!-- Exercises List -->
+<div class="flex flex-col gap-xl">
+<!-- Exercise Card 1 -->
+<article class="bg-surface-container border border-outline-variant rounded flex flex-col">
+<!-- Exercise Header -->
+<div class="p-md flex justify-between items-center border-b border-outline-variant bg-surface-container-high">
+<h2 class="font-headline-md text-headline-md text-on-surface uppercase tracking-tight">Barbell Squat</h2>
+<button class="text-on-surface-variant hover:text-error transition-colors">
+<span class="material-symbols-outlined" data-icon="more_horiz">more_horiz</span>
+</button>
+</div>
+<!-- Sets Area -->
+<div class="p-md flex flex-col gap-sm">
+<!-- Column Labels -->
+<div class="flex items-center text-on-surface-variant font-label-bold text-label-bold uppercase tracking-wider mb-xs px-xs">
+<div class="w-12 text-center">Set</div>
+<div class="flex-1 text-center">LBS</div>
+<div class="flex-1 text-center">Reps</div>
+<div class="w-16 text-center">
+<span class="material-symbols-outlined text-[18px]" data-icon="check">check</span>
+</div>
+</div>
+<!-- Set Row 1 (Completed) -->
+<div class="flex items-center gap-gutter bg-surface-container-low p-xs rounded border border-outline-variant transition-colors group">
+<div class="w-12 text-center font-data-numeric text-data-numeric text-on-surface-variant">1</div>
+<div class="flex-1">
+<input class="w-full bg-surface-container-lowest text-center font-data-numeric text-data-numeric text-on-surface py-xs border-b-2 border-outline-variant focus:border-primary-fixed focus:ring-0 focus:outline-none transition-colors" type="number" value="225"/>
+</div>
+<div class="flex-1">
+<input class="w-full bg-surface-container-lowest text-center font-data-numeric text-data-numeric text-on-surface py-xs border-b-2 border-outline-variant focus:border-primary-fixed focus:ring-0 focus:outline-none transition-colors" type="number" value="5"/>
+</div>
+<div class="w-16 flex justify-center">
+<button class="w-8 h-8 bg-primary-fixed text-on-primary-fixed flex items-center justify-center rounded active:scale-95 transition-transform">
+<span class="material-symbols-outlined text-[20px]" data-icon="check">check</span>
+</button>
+</div>
+</div>
+<!-- Set Row 2 (Active/Editing) -->
+<div class="flex items-center gap-gutter bg-surface-container p-xs rounded border border-outline-variant transition-colors relative">
+<!-- Progression Badge -->
+<div class="absolute -top-3 -right-2 bg-tertiary-container text-on-tertiary-container font-label-bold text-[10px] px-2 py-0.5 rounded flex items-center gap-1 shadow-md border border-on-tertiary-container">
+<span class="material-symbols-outlined text-[12px] font-bold" data-icon="arrow_upward">arrow_upward</span> PR
+                        </div>
+<div class="w-12 text-center font-data-numeric text-data-numeric text-primary-fixed">2</div>
+<div class="flex-1">
+<input class="w-full bg-surface-container-lowest text-center font-data-numeric text-data-numeric text-on-surface py-xs border-b-2 border-primary-fixed focus:border-primary-fixed focus:ring-0 focus:outline-none transition-colors" placeholder="235" type="number"/>
+</div>
+<div class="flex-1">
+<input class="w-full bg-surface-container-lowest text-center font-data-numeric text-data-numeric text-on-surface py-xs border-b-2 border-primary-fixed focus:border-primary-fixed focus:ring-0 focus:outline-none transition-colors" placeholder="5" type="number"/>
+</div>
+<div class="w-16 flex justify-center">
+<button class="w-8 h-8 bg-surface-container-high border border-outline-variant text-on-surface-variant flex items-center justify-center rounded active:scale-95 transition-transform hover:bg-surface-variant">
+<span class="material-symbols-outlined text-[20px]" data-icon="check">check</span>
+</button>
+</div>
+</div>
+<!-- Add Set Button -->
+<button class="mt-sm w-full py-sm border-2 border-dashed border-outline-variant text-on-surface-variant font-label-bold text-label-bold uppercase tracking-wider hover:border-primary-fixed hover:text-primary-fixed transition-colors active:bg-surface-variant rounded flex items-center justify-center gap-sm">
+<span class="material-symbols-outlined text-[18px]" data-icon="add">add</span> Add Set
+                    </button>
+</div>
+</article>
+<!-- Exercise Card 2 -->
+<article class="bg-surface-container border border-outline-variant rounded flex flex-col">
+<div class="p-md flex justify-between items-center border-b border-outline-variant bg-surface-container-high">
+<h2 class="font-headline-md text-headline-md text-on-surface uppercase tracking-tight">Leg Press</h2>
+<button class="text-on-surface-variant hover:text-error transition-colors">
+<span class="material-symbols-outlined" data-icon="more_horiz">more_horiz</span>
+</button>
+</div>
+<div class="p-md flex flex-col gap-sm">
+<div class="flex items-center text-on-surface-variant font-label-bold text-label-bold uppercase tracking-wider mb-xs px-xs">
+<div class="w-12 text-center">Set</div>
+<div class="flex-1 text-center">LBS</div>
+<div class="flex-1 text-center">Reps</div>
+<div class="w-16 text-center">
+<span class="material-symbols-outlined text-[18px]" data-icon="check">check</span>
+</div>
+</div>
+<div class="flex items-center gap-gutter bg-surface-container p-xs rounded border border-outline-variant transition-colors group">
+<div class="w-12 text-center font-data-numeric text-data-numeric text-on-surface-variant">1</div>
+<div class="flex-1">
+<input class="w-full bg-surface-container-lowest text-center font-data-numeric text-data-numeric text-on-surface py-xs border-b-2 border-outline-variant focus:border-primary-fixed focus:ring-0 focus:outline-none transition-colors" placeholder="-" type="number"/>
+</div>
+<div class="flex-1">
+<input class="w-full bg-surface-container-lowest text-center font-data-numeric text-data-numeric text-on-surface py-xs border-b-2 border-outline-variant focus:border-primary-fixed focus:ring-0 focus:outline-none transition-colors" placeholder="-" type="number"/>
+</div>
+<div class="w-16 flex justify-center">
+<button class="w-8 h-8 bg-surface-container-high border border-outline-variant text-on-surface-variant flex items-center justify-center rounded active:scale-95 transition-transform hover:bg-surface-variant">
+<span class="material-symbols-outlined text-[20px]" data-icon="check">check</span>
+</button>
+</div>
+</div>
+<button class="mt-sm w-full py-sm border-2 border-dashed border-outline-variant text-on-surface-variant font-label-bold text-label-bold uppercase tracking-wider hover:border-primary-fixed hover:text-primary-fixed transition-colors active:bg-surface-variant rounded flex items-center justify-center gap-sm">
+<span class="material-symbols-outlined text-[18px]" data-icon="add">add</span> Add Set
+                    </button>
+</div>
+</article>
+<!-- Add Exercise Button -->
+<button class="w-full py-md bg-transparent border-2 border-primary-fixed text-primary-fixed font-headline-md text-headline-md uppercase tracking-wider active:scale-95 transition-transform rounded flex items-center justify-center gap-sm">
+<span class="material-symbols-outlined" data-icon="add_circle">add_circle</span> Add Exercise
+            </button>
+</div>
+<!-- Finish Workout Button -->
+<button class="mt-lg w-full bg-primary-fixed text-on-primary-fixed font-headline-md text-headline-md py-lg rounded uppercase tracking-widest active:scale-95 transition-transform shadow-[0_0_15px_rgba(195,244,0,0.2)]">
+            Finish Workout
+        </button>
+</main>
+<!-- BottomNavBar JSON Component -->
+<nav class="bg-black text-[#CCFF00] font-space-grotesk text-[10px] font-bold uppercase tracking-wider fixed bottom-0 w-full z-50 border-t-2 border-[#1C1C1E] flat no shadows fixed bottom-0 left-0 w-full h-16 flex justify-around items-stretch">
+<!-- Active Tab: Log -->
+<button class="flex flex-col items-center justify-center text-[#000000] bg-[#CCFF00] rounded-none py-1 w-full h-full active:bg-[#CCFF00] active:text-black transition-colors duration-100 group">
+<span class="material-symbols-outlined mb-1 text-[24px]" data-icon="edit_note" style="font-variation-settings: 'FILL' 1;">edit_note</span>
+<span>Log</span>
+</button>
+<!-- Inactive Tab: History -->
+<button class="flex flex-col items-center justify-center text-white py-1 w-full h-full hover:bg-[#121212] active:bg-[#CCFF00] active:text-black transition-colors duration-100 group">
+<span class="material-symbols-outlined mb-1 text-[24px] group-active:text-black" data-icon="history">history</span>
+<span class="group-active:text-black">History</span>
+</button>
+<!-- Inactive Tab: Progress -->
+<button class="flex flex-col items-center justify-center text-white py-1 w-full h-full hover:bg-[#121212] active:bg-[#CCFF00] active:text-black transition-colors duration-100 group">
+<span class="material-symbols-outlined mb-1 text-[24px] group-active:text-black" data-icon="leaderboard">leaderboard</span>
+<span class="group-active:text-black">Progress</span>
+</button>
+<!-- Inactive Tab: Exercises -->
+<button class="flex flex-col items-center justify-center text-white py-1 w-full h-full hover:bg-[#121212] active:bg-[#CCFF00] active:text-black transition-colors duration-100 group">
+<span class="material-symbols-outlined mb-1 text-[24px] group-active:text-black" data-icon="list_alt">list_alt</span>
+<span class="group-active:text-black">Exercises</span>
+</button>
+</nav>
+</body></html>

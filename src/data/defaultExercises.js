@@ -1,0 +1,23 @@
+export const DEFAULT_EXERCISES = [
+  { name: 'Bench Press',          category: 'Chest',     equipment: 'Barbell',    type: 'Compound' },
+  { name: 'Incline Bench Press',  category: 'Chest',     equipment: 'Barbell',    type: 'Compound' },
+  { name: 'Overhead Press',       category: 'Shoulders', equipment: 'Barbell',    type: 'Compound' },
+  { name: 'Lateral Raise',        category: 'Shoulders', equipment: 'Dumbbell',   type: 'Isolation' },
+  { name: 'Face Pull',            category: 'Shoulders', equipment: 'Cable',      type: 'Isolation' },
+  { name: 'Barbell Row',          category: 'Back',      equipment: 'Barbell',    type: 'Compound' },
+  { name: 'Lat Pulldown',         category: 'Back',      equipment: 'Cable',      type: 'Compound' },
+  { name: 'Cable Row',            category: 'Back',      equipment: 'Cable',      type: 'Compound' },
+  { name: 'Pull-up',              category: 'Back',      equipment: 'Bodyweight', type: 'Compound' },
+  { name: 'Squat',                category: 'Legs',      equipment: 'Barbell',    type: 'Compound' },
+  { name: 'Romanian Deadlift',    category: 'Legs',      equipment: 'Barbell',    type: 'Compound' },
+  { name: 'Leg Press',            category: 'Legs',      equipment: 'Machine',    type: 'Compound' },
+  { name: 'Leg Curl',             category: 'Legs',      equipment: 'Machine',    type: 'Isolation' },
+  { name: 'Dip',                  category: 'Arms',      equipment: 'Bodyweight', type: 'Compound' },
+  { name: 'Tricep Pushdown',      category: 'Arms',      equipment: 'Cable',      type: 'Isolation' },
+  { name: 'Bicep Curl',           category: 'Arms',      equipment: 'Dumbbell',   type: 'Isolation' },
+].map((ex, i) => ({
+  id: `default_${i}`,
+  isDefault: true,
+  createdAt: new Date(0).toISOString(),
+  ...ex,
+}))

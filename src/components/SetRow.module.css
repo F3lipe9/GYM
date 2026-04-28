@@ -1,0 +1,68 @@
+.row {
+  display: grid;
+  grid-template-columns: 30px 1fr 1fr 44px;
+  gap: 8px;
+  align-items: center;
+}
+
+.num {
+  text-align: center;
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--text-muted);
+}
+
+.numActive {
+  color: var(--accent);
+}
+
+.input {
+  text-align: center;
+  padding: 0.55rem 0.25rem;
+  font-weight: 600;
+}
+
+.inputActive {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.checkWrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.prBadge {
+  position: absolute;
+  bottom: calc(100% + 4px);
+  right: 0;
+  background: #1a52c8;
+  color: #fff;
+  font-size: 0.65rem;
+  font-weight: 800;
+  padding: 2px 6px;
+  border-radius: 4px;
+  white-space: nowrap;
+  pointer-events: none;
+}
+
+.checkBtn {
+  width: 36px;
+  height: 36px;
+  border-radius: var(--radius);
+  background: var(--bg-input);
+  border: 1px solid var(--border);
+  color: var(--text-muted);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.checkDone {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #000;
+}

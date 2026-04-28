@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>GymLog - History</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700;900&amp;family=Lexend:wght@400;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-secondary-container": "#b7b5b4",
+                        "surface-container-high": "#2a2a2a",
+                        "secondary-container": "#474746",
+                        "on-background": "#e2e2e2",
+                        "tertiary": "#ffffff",
+                        "on-surface-variant": "#c4c9ac",
+                        "surface-container": "#1f1f1f",
+                        "primary": "#ffffff",
+                        "surface-container-lowest": "#0e0e0e",
+                        "primary-fixed-dim": "#abd600",
+                        "on-secondary-fixed-variant": "#474746",
+                        "surface": "#131313",
+                        "on-tertiary-fixed": "#001a41",
+                        "inverse-on-surface": "#303030",
+                        "on-primary": "#283500",
+                        "inverse-primary": "#506600",
+                        "error-container": "#93000a",
+                        "primary-container": "#c3f400",
+                        "surface-dim": "#131313",
+                        "on-error-container": "#ffdad6",
+                        "surface-bright": "#393939",
+                        "secondary-fixed-dim": "#c8c6c5",
+                        "outline-variant": "#444933",
+                        "on-secondary": "#313030",
+                        "secondary": "#c8c6c5",
+                        "error": "#ffb4ab",
+                        "on-primary-fixed-variant": "#3c4d00",
+                        "tertiary-fixed-dim": "#adc6ff",
+                        "surface-container-low": "#1b1b1b",
+                        "on-surface": "#e2e2e2",
+                        "primary-fixed": "#c3f400",
+                        "outline": "#8e9379",
+                        "on-tertiary-container": "#0060cc",
+                        "on-tertiary-fixed-variant": "#004493",
+                        "surface-variant": "#353535",
+                        "on-secondary-fixed": "#1c1b1b",
+                        "background": "#131313",
+                        "on-primary-container": "#556d00",
+                        "tertiary-fixed": "#d8e2ff",
+                        "surface-tint": "#abd600",
+                        "secondary-fixed": "#e5e2e1",
+                        "on-tertiary": "#002e69",
+                        "inverse-surface": "#e2e2e2",
+                        "on-primary-fixed": "#161e00",
+                        "on-error": "#690005",
+                        "tertiary-container": "#d8e2ff",
+                        "surface-container-highest": "#353535"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "lg": "24px",
+                        "sm": "8px",
+                        "xl": "32px",
+                        "xs": "4px",
+                        "unit": "4px",
+                        "margin-mobile": "16px",
+                        "md": "16px",
+                        "gutter": "12px"
+                    },
+                    "fontFamily": {
+                        "body-lg": ["Lexend"],
+                        "display-lg": ["Space Grotesk"],
+                        "body-md": ["Lexend"],
+                        "headline-lg": ["Space Grotesk"],
+                        "data-numeric": ["Space Grotesk"],
+                        "headline-md": ["Space Grotesk"],
+                        "label-bold": ["Lexend"]
+                    },
+                    "fontSize": {
+                        "body-lg": ["18px", { "lineHeight": "1.5", "fontWeight": "400" }],
+                        "display-lg": ["48px", { "lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "body-md": ["16px", { "lineHeight": "1.5", "fontWeight": "400" }],
+                        "headline-lg": ["32px", { "lineHeight": "1.2", "fontWeight": "700" }],
+                        "data-numeric": ["20px", { "lineHeight": "1.0", "fontWeight": "700" }],
+                        "headline-md": ["24px", { "lineHeight": "1.2", "fontWeight": "600" }],
+                        "label-bold": ["14px", { "lineHeight": "1.2", "fontWeight": "600" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-background min-h-screen flex flex-col font-body-md">
+<!-- TopAppBar JSON execution -->
+<header class="fixed top-0 w-full z-50 bg-black flex justify-between items-center px-4 h-16 border-b-2 border-[#1C1C1E]">
+<div class="flex items-center gap-sm">
+<span class="material-symbols-outlined text-[#CCFF00]">fitness_center</span>
+<h1 class="font-space-grotesk font-black uppercase tracking-tighter text-2xl text-[#CCFF00] tracking-widest">GYMLOG</h1>
+</div>
+<div class="w-8 h-8 rounded-full overflow-hidden border border-outline-variant">
+<img alt="User Profile" class="w-full h-full object-cover" data-alt="Close up portrait of a fit person looking focused in a dark gym environment" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCUGF08EwvoyscqrqHlD5ECn8XyhAF_XvtKePyPFOGkN203LzdvHJXArVjGnO8tbDOtW77PFaDGjKoKSTQPGibVpZWzEwng-vno_ny1DTpYySjbEUdLdmr8uXRhIKegziOwIZMCw7k5eqAfiWGJ7i_9z1h555-41v0pY60eneElOuckclGxL7kC7PQ7DI1g83dOdqembFajyV0DWqLVfD0a7nN22ptsK2KIy76vpySKsH9sZkaSdCrGikaDusaSR1wmUQ3ACarvfY1z"/>
+</div>
+</header>
+<!-- Main Content Canvas -->
+<main class="flex-1 pt-24 pb-24 px-margin-mobile md:px-lg max-w-3xl mx-auto w-full flex flex-col gap-xl">
+<!-- Streak Section (High Contrast Utilitarian) -->
+<section class="bg-surface-container border border-outline p-md rounded flex items-center justify-between">
+<div class="flex flex-col">
+<span class="font-label-bold text-label-bold text-on-surface-variant uppercase tracking-widest">Active Streak</span>
+<div class="flex items-baseline gap-xs mt-xs">
+<span class="font-display-lg text-display-lg text-primary-fixed">14</span>
+<span class="font-label-bold text-label-bold text-on-surface-variant uppercase tracking-wider">Days</span>
+</div>
+</div>
+<div class="bg-surface-variant p-sm border border-outline-variant rounded-none">
+<span class="material-symbols-outlined text-primary-fixed" style="font-variation-settings: 'FILL' 1; font-size: 32px;">local_fire_department</span>
+</div>
+</section>
+<!-- Frequency Heatmap -->
+<section class="flex flex-col gap-sm">
+<h2 class="font-headline-md text-headline-md text-on-surface uppercase tracking-wider border-b border-outline-variant pb-xs">Intensity</h2>
+<div class="bg-surface-container-low p-md border border-outline-variant rounded flex flex-col gap-sm overflow-hidden">
+<div class="overflow-x-auto pb-xs">
+<div class="flex gap-[2px] min-w-max">
+<!-- Simulated 12 weeks of data columns -->
+<div class="flex flex-col gap-[2px]"><div class="w-3 h-3 bg-surface-variant"></div><div class="w-3 h-3 bg-surface-variant"></div><div class="w-3 h-3 bg-primary-fixed/40"></div><div class="w-3 h-3 bg-surface-variant"></div><div class="w-3 h-3 bg-primary-fixed"></div><div class="w-3 h-3 bg-surface-variant"></div><div class="w-3 h-3 bg-surface-variant"></div></div>
+<div class="flex flex-col gap-[2px]"><div class="w-3 h-3 bg-surface-variant"></div><div class="w-3 h-3 bg-primary-fixed/70"></div><div class="w-3 h-3 bg-surface-variant"></div><div class="w-3 h-3 bg-surface-variant"></div><div class="w-3 h-3 bg-primary-fixed/40"></div><div class="w-3 h-3 bg-surface-variant"></div><div class="w-3 h-3 bg-primary-fixed/40"></div></div>
+<div class="flex flex-col gap-[2px]"><div class="w-3 h-3 bg-surface-variant"></div><div class="w-3 h-3 bg-surface-variant"></div><div class="w-3 h-3 bg-surface-variant"></div><div class="w-3 h-3 bg-primary-fixed"></div><div class="w-3 h-3 bg-surface-variant"></div><div class="w-3 h-3 bg-primary-fixed/70"></div><div class="w-3 h-3 bg-surface-variant"></div></div>
+<div class="flex flex-col gap-[2px]"><div class="w-3 h-3 bg-primary-fixed/40"></div><div class="w-3 h-3 bg-surface-variant"></div><div class="w-3 h-3 bg-primary-fixed/70"></div><div class="w-3 h-3 bg-surface-variant"></div><div class="w-3 h-3 bg-surface-variant"></div><div class="w-3 h-3 bg-primary-fixed/40"></div><div class="w-3 h-3 bg-surface-variant"></div></div>
+<div class="flex flex-col gap-[2px]"><div class="w-3 h-3 bg-surface-variant"></div><div class="w-3 h-3 bg-surface-variant"></div><div class="w-3 h-3 bg-surface-variant"></div><div class="w-3 h-3 bg-surface-variant"></div><div class="w-3 h-3 bg-primary-fixed"></div><div class="w-3 h-3 bg-surface-variant"></div><div class="w-3 h-3 bg-surface-variant"></div></div>
+<div class="flex flex-col gap-[2px]"><div class="w-3 h-3 bg-surface-variant"></div><div class="w-3 h-3 bg-primary-fixed/40"></div><div class="w-3 h-3 bg-surface-variant"></div><div class="w-3 h-3 bg-primary-fixed/70"></div><div class="w-3 h-3 bg-surface-variant"></div><div class="w-3 h-3 bg-primary-fixed/40"></div><div class="w-3 h-3 bg-surface-variant"></div></div>
+<div class="flex flex-col gap-[2px]"><div class="w-3 h-3 bg-surface-variant"></div><div class="w-3 h-3 bg-surface-variant"></div><div class="w-3 h-3 bg-primary-fixed"></div><div class="w-3 h-3 bg-surface-variant"></div><div class="w-3 h-3 bg-surface-variant"></div><div class="w-3 h-3 bg-primary-fixed/70"></div><div class="w-3 h-3 bg-surface-variant"></div></div>
+<div class="flex flex-col gap-[2px]"><div class="w-3 h-3 bg-primary-fixed/70"></div><div class="w-3 h-3 bg-surface-variant"></div><div class="w-3 h-3 bg-surface-variant"></div><div class="w-3 h-3 bg-primary-fixed/40"></div><div class="w-3 h-3 bg-surface-variant"></div><div class="w-3 h-3 bg-surface-variant"></div><div class="w-3 h-3 bg-primary-fixed/40"></div></div>
+<div class="flex flex-col gap-[2px]"><div class="w-3 h-3 bg-surface-variant"></div><div class="w-3 h-3 bg-surface-variant"></div><div class="w-3 h-3 bg-primary-fixed/40"></div><div class="w-3 h-3 bg-surface-variant"></div><div class="w-3 h-3 bg-primary-fixed"></div><div class="w-3 h-3 bg-surface-variant"></div><div class="w-3 h-3 bg-surface-variant"></div></div>
+<div class="flex flex-col gap-[2px]"><div class="w-3 h-3 bg-surface-variant"></div><div class="w-3 h-3 bg-primary-fixed/70"></div><div class="w-3 h-3 bg-surface-variant"></div><div class="w-3 h-3 bg-surface-variant"></div><div class="w-3 h-3 bg-primary-fixed/40"></div><div class="w-3 h-3 bg-surface-variant"></div><div class="w-3 h-3 bg-primary-fixed/70"></div></div>
+<div class="flex flex-col gap-[2px]"><div class="w-3 h-3 bg-surface-variant"></div><div class="w-3 h-3 bg-surface-variant"></div><div class="w-3 h-3 bg-primary-fixed"></div><div class="w-3 h-3 bg-surface-variant"></div><div class="w-3 h-3 bg-surface-variant"></div><div class="w-3 h-3 bg-primary-fixed/40"></div><div class="w-3 h-3 bg-surface-variant"></div></div>
+<div class="flex flex-col gap-[2px]"><div class="w-3 h-3 bg-primary-fixed/40"></div><div class="w-3 h-3 bg-surface-variant"></div><div class="w-3 h-3 bg-surface-variant"></div><div class="w-3 h-3 bg-primary-fixed/70"></div><div class="w-3 h-3 bg-surface-variant"></div><div class="w-3 h-3 bg-primary-fixed"></div><div class="w-3 h-3 bg-surface-variant"></div></div>
+</div>
+</div>
+<div class="flex justify-between items-center font-label-bold text-label-bold text-on-surface-variant">
+<span class="uppercase tracking-wider">12 Weeks</span>
+<div class="flex items-center gap-xs">
+<span class="text-[10px] uppercase">Light</span>
+<div class="w-3 h-3 bg-surface-variant"></div>
+<div class="w-3 h-3 bg-primary-fixed/40"></div>
+<div class="w-3 h-3 bg-primary-fixed/70"></div>
+<div class="w-3 h-3 bg-primary-fixed"></div>
+<span class="text-[10px] uppercase">Heavy</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Workout List -->
+<section class="flex flex-col gap-0">
+<!-- Expanded Item -->
+<div class="border-t-2 border-outline-variant py-md flex flex-col gap-sm">
+<div class="flex justify-between items-start">
+<div class="flex flex-col">
+<span class="font-label-bold text-label-bold text-on-surface-variant tracking-widest uppercase mb-1">TODAY • 65 MIN • 12.4T</span>
+<h3 class="font-headline-lg text-headline-lg text-on-surface leading-none">Upper Power</h3>
+</div>
+<button class="bg-surface-variant text-primary-fixed border border-outline-variant p-2 hover:bg-surface-container transition-colors">
+<span class="material-symbols-outlined text-[20px]">expand_less</span>
+</button>
+</div>
+<div class="bg-surface-container border border-outline-variant p-sm flex flex-col gap-xs mt-xs">
+<!-- Exercise row -->
+<div class="flex justify-between items-end border-b border-surface-variant pb-xs">
+<span class="font-body-md text-body-md text-on-surface">Bench Press</span>
+<span class="font-data-numeric text-data-numeric text-secondary">5<span class="text-on-surface-variant text-[14px]">×</span>5 <span class="text-primary-fixed">@ 100</span></span>
+</div>
+<!-- Exercise row -->
+<div class="flex justify-between items-end border-b border-surface-variant pb-xs">
+<span class="font-body-md text-body-md text-on-surface">Incline Row</span>
+<span class="font-data-numeric text-data-numeric text-secondary">4<span class="text-on-surface-variant text-[14px]">×</span>8 <span class="text-primary-fixed">@ 80</span></span>
+</div>
+<!-- Exercise row -->
+<div class="flex justify-between items-end pb-xs">
+<span class="font-body-md text-body-md text-on-surface">Overhead Press</span>
+<span class="font-data-numeric text-data-numeric text-secondary">3<span class="text-on-surface-variant text-[14px]">×</span>10 <span class="text-primary-fixed">@ 60</span></span>
+</div>
+</div>
+</div>
+<!-- Collapsed Item -->
+<div class="border-t-2 border-outline-variant py-md flex justify-between items-start">
+<div class="flex flex-col">
+<span class="font-label-bold text-label-bold text-on-surface-variant tracking-widest uppercase mb-1">OCT 22 • 50 MIN • 15.2T</span>
+<h3 class="font-headline-md text-headline-md text-secondary leading-none">Lower Hypertrophy</h3>
+</div>
+<button class="bg-transparent text-secondary border border-transparent p-2 hover:text-on-surface transition-colors">
+<span class="material-symbols-outlined text-[20px]">expand_more</span>
+</button>
+</div>
+<!-- Collapsed Item -->
+<div class="border-t-2 border-outline-variant py-md flex justify-between items-start">
+<div class="flex flex-col">
+<span class="font-label-bold text-label-bold text-on-surface-variant tracking-widest uppercase mb-1">OCT 20 • 45 MIN • 9.8T</span>
+<h3 class="font-headline-md text-headline-md text-secondary leading-none">Active Recovery</h3>
+</div>
+<button class="bg-transparent text-secondary border border-transparent p-2 hover:text-on-surface transition-colors">
+<span class="material-symbols-outlined text-[20px]">expand_more</span>
+</button>
+</div>
+<!-- End cap border -->
+<div class="border-t-2 border-outline-variant"></div>
+</section>
+</main>
+<!-- BottomNavBar JSON execution -->
+<nav class="fixed bottom-0 left-0 w-full h-16 flex justify-around items-stretch bg-black z-50 border-t-2 border-[#1C1C1E]">
+<!-- Log: Inactive -->
+<button class="flex flex-col items-center justify-center text-white py-1 w-full h-full hover:bg-[#121212] transition-colors duration-100">
+<span class="material-symbols-outlined">edit_note</span>
+<span class="font-space-grotesk text-[10px] font-bold uppercase tracking-wider mt-1">Log</span>
+</button>
+<!-- History: Active -->
+<button class="flex flex-col items-center justify-center text-[#000000] bg-[#CCFF00] rounded-none py-1 w-full h-full active:bg-[#CCFF00] active:text-black transition-colors duration-100">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">history</span>
+<span class="font-space-grotesk text-[10px] font-bold uppercase tracking-wider mt-1">History</span>
+</button>
+<!-- Progress: Inactive -->
+<button class="flex flex-col items-center justify-center text-white py-1 w-full h-full hover:bg-[#121212] transition-colors duration-100">
+<span class="material-symbols-outlined">leaderboard</span>
+<span class="font-space-grotesk text-[10px] font-bold uppercase tracking-wider mt-1">Progress</span>
+</button>
+<!-- Exercises: Inactive -->
+<button class="flex flex-col items-center justify-center text-white py-1 w-full h-full hover:bg-[#121212] transition-colors duration-100">
+<span class="material-symbols-outlined">list_alt</span>
+<span class="font-space-grotesk text-[10px] font-bold uppercase tracking-wider mt-1">Exercises</span>
+</button>
+</nav>
+</body></html>
