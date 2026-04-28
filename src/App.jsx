@@ -10,7 +10,7 @@ import Exercises from './screens/Exercises'
 export default function App() {
   return (
     <AppProvider>
-      <BrowserRouter basename="/gym">
+      <BrowserRouter basename="/GYM">
         <div className="app">
           <TopBar />
           <main className="main-content">
