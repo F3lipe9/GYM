@@ -133,15 +133,15 @@ Lateral Raise, Face Pull
 - [x] Progress screen (charts last, depends on data utilities)
 
 ### Phase 4 — PWA
-- [x] Configure vite-plugin-pwa (manifest: name, icons, theme color, display: standalone)
-- [x] Verify service worker caches app shell
-- [ ] Test "Add to Home Screen" on mobile
+ - [x] Configure vite-plugin-pwa (manifest: name, icons, theme color, display: standalone)            
+ - [x] Verify service worker caches app shell                                                         
+ - [ ] Test "Add to Home Screen" on mobile
 
 ### Phase 5 — Polish & Deploy
-- [x] Mobile-first responsive layout
-- [x] Bottom navigation bar (Log, History, Progress, Exercises)
-- [x] Empty states for all screens
-- [x] Push to GitHub, enable GitHub Pages
+- [ ] Mobile-first responsive layout
+- [ ] Bottom navigation bar (Log, History, Progress, Exercises)
+- [ ] Empty states for all screens
+- [ ] Push to GitHub, enable GitHub Pages
 - [ ] End-to-end test on phone
 
 ---

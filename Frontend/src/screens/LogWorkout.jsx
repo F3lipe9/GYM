@@ -1,10 +1,13 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useApp } from '../context/AppContext'
 import { getPRs } from '../utils/prs'
-import { getProgressionFlags, getSuggestedWeight } from '../utils/progression'
+import { getSuggestions } from '../utils/progression'
+import { load, save } from '../utils/storage'
 import SetRow from '../components/SetRow'
 import ProgressionBadge from '../components/ProgressionBadge'
 import styles from './LogWorkout.module.css'
+
+const DRAFT_KEY = 'workout_draft'
 
 function todayISO() {
   return new Date().toISOString().slice(0, 10)
@@ -25,12 +28,20 @@ function newSet() {
 
 export default function LogWorkout() {
   const { state, dispatch } = useApp()
-  const [date, setDate] = useState(todayISO)
-  const [entries, setEntries] = useState([])
+  const [date, setDate] = useState(() => load(DRAFT_KEY, null)?.date ?? todayISO())
+  const [entries, setEntries] = useState(() => load(DRAFT_KEY, null)?.entries ?? [])
   const [showPicker, setShowPicker] = useState(false)
 
+  useEffect(() => {
+    if (entries.length > 0) {
+      save(DRAFT_KEY, { date, entries })
+    } else {
+      localStorage.removeItem(DRAFT_KEY)
+    }
+  }, [date, entries])
+
   const prs = getPRs(state.workouts)
-  const progressionFlags = getProgressionFlags(state.workouts)
+  const suggestions = getSuggestions(state.workouts)
   const addedIds = new Set(entries.map((e) => e.exerciseId))
 
   function addExercise(exerciseId) {
@@ -69,7 +80,14 @@ export default function LogWorkout() {
 
     if (!doneSets.length) return
     dispatch({ type: 'ADD_WORKOUT', payload: { id: makeId(), date, exercises: doneSets } })
+    localStorage.removeItem(DRAFT_KEY)
     setEntries([])
+  }
+
+  function discardWorkout() {
+    localStorage.removeItem(DRAFT_KEY)
+    setEntries([])
+    setDate(todayISO())
   }
 
   return (
@@ -95,8 +113,7 @@ export default function LogWorkout() {
         const firstUndoneIdx = entry.sets.findIndex((s) => !s.done)
         const currentPR = prs[entry.exerciseId]?.weight ?? 0
 
-        const qualifies = progressionFlags.has(entry.exerciseId)
-        const suggested = qualifies ? getSuggestedWeight(state.workouts, entry.exerciseId) : null
+        const suggested = suggestions.get(entry.exerciseId) ?? null
 
         return (
           <ExerciseCard
@@ -143,9 +160,14 @@ export default function LogWorkout() {
       </button>
 
       {entries.length > 0 && (
-        <button className={styles.finishBtn} onClick={finishWorkout}>
-          FINISH WORKOUT
-        </button>
+        <>
+          <button className={styles.finishBtn} onClick={finishWorkout}>
+            FINISH WORKOUT
+          </button>
+          <button className={styles.discardBtn} onClick={discardWorkout}>
+            Discard workout
+          </button>
+        </>
       )}
     </div>
   )

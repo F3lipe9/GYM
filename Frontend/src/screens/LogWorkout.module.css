@@ -227,3 +227,16 @@
   border-radius: var(--radius);
   margin-top: 0.25rem;
 }
+
+/* ── Discard workout button ── */
+.discardBtn {
+  width: 100%;
+  padding: 0.6rem;
+  background: transparent;
+  color: var(--text-muted);
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  border: none;
+  margin-top: -0.25rem;
+}
