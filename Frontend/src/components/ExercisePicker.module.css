@@ -1,0 +1,158 @@
+.search {
+  margin-bottom: 0.25rem;
+}
+
+/* ── Category group ── */
+.group {
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--bg-input);
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.groupOpen {
+  border-color: var(--accent);
+}
+
+.catHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 0.85rem 1rem;
+  background: transparent;
+  color: var(--text);
+  border-radius: 0;
+  text-align: left;
+}
+
+.catName {
+  font-size: 1rem;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+}
+
+.catMeta {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--text-muted);
+}
+
+.addedCount {
+  font-size: 0.68rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+.chevron {
+  font-size: 1rem;
+  transition: transform 0.15s;
+}
+
+.chevronOpen {
+  transform: rotate(180deg);
+  color: var(--accent);
+}
+
+/* ── Exercise rows ── */
+.list {
+  display: flex;
+  flex-direction: column;
+}
+
+.group .list {
+  border-top: 1px solid var(--border);
+}
+
+.exRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  width: 100%;
+  padding: 0.7rem 1rem;
+  background: transparent;
+  color: var(--text);
+  border-radius: 0;
+  border-bottom: 1px solid #242424;
+  text-align: left;
+}
+
+.exRow:last-child {
+  border-bottom: none;
+}
+
+.exRow:not(:disabled):active {
+  background: rgba(202, 255, 0, 0.08);
+}
+
+.added {
+  opacity: 0.45;
+  cursor: default;
+}
+
+.exInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+  min-width: 0;
+}
+
+.exName {
+  font-size: 0.95rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.exMeta {
+  font-size: 0.66rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  color: var(--text-muted);
+}
+
+.exRight {
+  flex-shrink: 0;
+}
+
+.suggest {
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  font-variant-numeric: tabular-nums;
+}
+
+.up {
+  color: var(--accent);
+}
+
+.check {
+  color: var(--accent);
+  font-weight: 900;
+}
+
+.empty {
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  text-align: center;
+  padding: 1.5rem 0;
+}
+
+/* ── Footer ── */
+.doneBtn {
+  width: 100%;
+  padding: 0.9rem;
+  background: var(--accent);
+  color: #000;
+  font-size: 1rem;
+  font-weight: 900;
+  letter-spacing: 0.12em;
+}

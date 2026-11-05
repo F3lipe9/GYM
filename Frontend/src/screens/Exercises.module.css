@@ -202,3 +202,19 @@
   padding: 2rem 0;
   letter-spacing: 0.05em;
 }
+
+.categorySelect {
+  width: 100%;
+  padding: 0.5rem 0.75rem;
+  background: var(--bg-input);
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  font-family: inherit;
+  font-size: 1rem;
+}
+
+.categorySelect:focus {
+  outline: none;
+  border-color: var(--accent);
+}

@@ -1,9 +1,35 @@
 import { useState } from 'react'
-import { BarChart, Bar, Cell, XAxis, ResponsiveContainer, Tooltip } from 'recharts'
+import { LineChart, Line, XAxis, YAxis, CartesianGrid, ResponsiveContainer, Tooltip } from 'recharts'
 import { useApp } from '../context/AppContext'
 import { getVolumeOverTime } from '../utils/volume'
 import { getPRs } from '../utils/prs'
 import styles from './Progress.module.css'
+
+const ACCENT = '#ccff00'
+
+const RANGES = [
+  { key: '1M', months: 1 },
+  { key: '3M', months: 3 },
+  { key: '6M', months: 6 },
+  { key: 'ALL', months: null },
+]
+
+function rangeCutoff(months) {
+  if (months == null) return null
+  const d = new Date()
+  d.setMonth(d.getMonth() - months)
+  return d.toISOString().slice(0, 10)
+}
+
+function fmtVolumeTick(v) {
+  return v >= 1000 ? `${+(v / 1000).toFixed(1)}k` : v
+}
+
+const tooltipStyle = {
+  contentStyle: { background: '#1a1a1a', border: '1px solid #2e2e2e', borderRadius: 6, fontSize: 12 },
+  itemStyle: { color: ACCENT },
+  labelStyle: { color: '#888' },
+}
 
 function fmtDate(dateStr) {
   const today = new Date().toISOString().slice(0, 10)
@@ -15,6 +41,7 @@ function fmtDate(dateStr) {
 export default function Progress() {
   const { state, dispatch } = useApp()
   const [selectedId, setSelectedId] = useState('')
+  const [range, setRange] = useState('3M')
   const [bwInput, setBwInput] = useState('')
   const [showBwInput, setShowBwInput] = useState(false)
 
@@ -25,14 +52,15 @@ export default function Progress() {
   const oneRM = pr ? pr.weight : null
   const volPR = volumeData.length > 0 ? Math.max(...volumeData.map((d) => d.volume)) : null
   const currentVolume = volumeData.length > 0 ? volumeData[volumeData.length - 1].volume : null
-  const chartData = volumeData.slice(-5)
+  const cutoff = rangeCutoff(RANGES.find((r) => r.key === range).months)
+  const chartData = cutoff ? volumeData.filter((d) => d.date >= cutoff) : volumeData
 
   const bwData = [...state.bodyweight].sort((a, b) => a.date.localeCompare(b.date))
   const currentBw = bwData.length > 0 ? bwData[bwData.length - 1].weight : null
 
-  const cutoff = new Date()
-  cutoff.setDate(cutoff.getDate() - 7)
-  const recentBw = bwData.filter((d) => new Date(d.date + 'T00:00:00') >= cutoff)
+  const bwCutoff = new Date()
+  bwCutoff.setDate(bwCutoff.getDate() - 7)
+  const recentBw = bwData.filter((d) => new Date(d.date + 'T00:00:00') >= bwCutoff)
   const trend =
     recentBw.length >= 2
       ? +(recentBw[recentBw.length - 1].weight - recentBw[0].weight).toFixed(1)
@@ -86,7 +114,7 @@ export default function Progress() {
             </div>
 
             <div className={styles.chartHeader}>
-              <span className={styles.chartLabel}>VOLUME HISTORY</span>
+              <span className={styles.chartLabel}>VOLUME OVER TIME</span>
               {currentVolume !== null && (
                 <span className={styles.chartValue}>
                   {currentVolume.toLocaleString()}
@@ -95,32 +123,68 @@ export default function Progress() {
               )}
             </div>
 
-            {chartData.length > 0 ? (
-              <ResponsiveContainer width="100%" height={160}>
-                <BarChart data={chartData} barCategoryGap="25%">
-                  <XAxis
-                    dataKey="date"
-                    tickFormatter={fmtDate}
-                    tick={(props) => <CustomTick {...props} last={chartData.length - 1} />}
-                    axisLine={false}
-                    tickLine={false}
-                    interval={0}
-                  />
-                  <Tooltip
-                    contentStyle={{ background: '#1a1a1a', border: '1px solid #2e2e2e', borderRadius: 6, fontSize: 12 }}
-                    itemStyle={{ color: 'var(--accent)' }}
-                    labelFormatter={fmtDate}
-                    cursor={false}
-                  />
-                  <Bar dataKey="volume" radius={[4, 4, 0, 0]}>
-                    {chartData.map((_, i) => (
-                      <Cell key={i} fill={i === chartData.length - 1 ? 'var(--accent)' : '#3a3a3a'} />
-                    ))}
-                  </Bar>
-                </BarChart>
-              </ResponsiveContainer>
-            ) : (
+            {volumeData.length > 0 && (
+              <div className={styles.rangeToggle} role="group" aria-label="Chart range">
+                {RANGES.map((r) => (
+                  <button
+                    key={r.key}
+                    className={`${styles.rangeBtn} ${range === r.key ? styles.rangeActive : ''}`}
+                    onClick={() => setRange(r.key)}
+                    aria-pressed={range === r.key}
+                  >
+                    {r.key}
+                  </button>
+                ))}
+              </div>
+            )}
+
+            {volumeData.length === 0 ? (
               <p className={styles.empty}>No sessions logged yet.</p>
+            ) : chartData.length === 0 ? (
+              <p className={styles.empty}>No sessions in this range.</p>
+            ) : (
+              <>
+                <ResponsiveContainer width="100%" height={200}>
+                  <LineChart data={chartData} margin={{ top: 8, right: 8, left: 0, bottom: 0 }}>
+                    <CartesianGrid vertical={false} stroke="#2a2a2a" />
+                    <XAxis
+                      dataKey="date"
+                      tickFormatter={fmtDate}
+                      axisLine={false}
+                      tickLine={false}
+                      minTickGap={24}
+                      padding={{ left: 8, right: 8 }}
+                      tick={{ fontSize: 10, fill: '#666', fontWeight: 700 }}
+                    />
+                    <YAxis
+                      width={40}
+                      axisLine={false}
+                      tickLine={false}
+                      tick={{ fontSize: 10, fill: '#666' }}
+                      tickFormatter={fmtVolumeTick}
+                      domain={['auto', 'auto']}
+                    />
+                    <Tooltip
+                      {...tooltipStyle}
+                      labelFormatter={fmtDate}
+                      formatter={(v) => [`${v.toLocaleString()} lbs`, 'Volume']}
+                      cursor={{ stroke: '#3a3a3a' }}
+                    />
+                    <Line
+                      type="monotone"
+                      dataKey="volume"
+                      stroke={ACCENT}
+                      strokeWidth={2}
+                      dot={{ r: 3, fill: ACCENT, strokeWidth: 0 }}
+                      activeDot={{ r: 5 }}
+                      isAnimationActive={false}
+                    />
+                  </LineChart>
+                </ResponsiveContainer>
+                {chartData.length === 1 && (
+                  <p className={styles.hint}>Log another session to see a trend.</p>
+                )}
+              </>
             )}
           </>
         ) : (
@@ -171,16 +235,17 @@ export default function Progress() {
             {miniChartData.length > 1 && (
               <div className={styles.miniChart}>
                 <ResponsiveContainer width={80} height={40}>
-                  <BarChart data={miniChartData} barCategoryGap="15%">
-                    <Bar dataKey="weight" radius={[2, 2, 0, 0]}>
-                      {miniChartData.map((_, i) => (
-                        <Cell
-                          key={i}
-                          fill={i === miniChartData.length - 1 ? 'var(--accent)' : '#3a3a3a'}
-                        />
-                      ))}
-                    </Bar>
-                  </BarChart>
+                  <LineChart data={miniChartData} margin={{ top: 4, right: 4, left: 4, bottom: 4 }}>
+                    <YAxis hide domain={['dataMin', 'dataMax']} />
+                    <Line
+                      type="monotone"
+                      dataKey="weight"
+                      stroke={ACCENT}
+                      strokeWidth={2}
+                      dot={false}
+                      isAnimationActive={false}
+                    />
+                  </LineChart>
                 </ResponsiveContainer>
               </div>
             )}
@@ -188,21 +253,5 @@ export default function Progress() {
         )}
       </div>
     </div>
-  )
-}
-
-function CustomTick({ x, y, payload, last }) {
-  const isLast = payload.index === last
-  return (
-    <text
-      x={x}
-      y={y + 12}
-      textAnchor="middle"
-      fontSize={10}
-      fontWeight={700}
-      fill={isLast ? 'var(--accent)' : '#666'}
-    >
-      {fmtDate(payload.value)}
-    </text>
   )
 }

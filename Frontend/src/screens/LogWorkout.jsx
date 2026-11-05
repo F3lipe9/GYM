@@ -1,25 +1,26 @@
 import { useState, useEffect } from 'react'
 import { useApp } from '../context/AppContext'
 import { getPRs } from '../utils/prs'
-import { getSuggestions } from '../utils/progression'
+import { getSuggestions, getSuggestionDetails } from '../utils/progression'
 import { load, save } from '../utils/storage'
+import { makeId } from '../utils/id'
+import {
+  DRAFT_KEY,
+  todayISO,
+  buildEntriesFromTemplate,
+  templateFromEntries,
+  exercisesFromEntries,
+} from '../utils/templates'
 import SetRow from '../components/SetRow'
 import ProgressionBadge from '../components/ProgressionBadge'
+import ExercisePicker from '../components/ExercisePicker'
+import TemplatePicker from '../components/TemplatePicker'
+import Sheet from '../components/Sheet'
 import styles from './LogWorkout.module.css'
-
-const DRAFT_KEY = 'workout_draft'
-
-function todayISO() {
-  return new Date().toISOString().slice(0, 10)
-}
 
 function formatDate(iso) {
   const d = new Date(iso + 'T00:00:00')
   return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }).toUpperCase()
-}
-
-function makeId() {
-  return `${Date.now()}_${Math.random().toString(36).slice(2, 7)}`
 }
 
 function newSet() {
@@ -30,24 +31,39 @@ export default function LogWorkout() {
   const { state, dispatch } = useApp()
   const [date, setDate] = useState(() => load(DRAFT_KEY, null)?.date ?? todayISO())
   const [entries, setEntries] = useState(() => load(DRAFT_KEY, null)?.entries ?? [])
+  const [activeTemplateId, setActiveTemplateId] = useState(
+    () => load(DRAFT_KEY, null)?.activeTemplateId ?? null
+  )
   const [showPicker, setShowPicker] = useState(false)
+  const [showSplitPicker, setShowSplitPicker] = useState(false)
+  const [showSave, setShowSave] = useState(false)
+  const [splitName, setSplitName] = useState('')
+  const [notice, setNotice] = useState('')
 
   useEffect(() => {
     if (entries.length > 0) {
-      save(DRAFT_KEY, { date, entries })
+      save(DRAFT_KEY, { date, entries, activeTemplateId })
     } else {
       localStorage.removeItem(DRAFT_KEY)
     }
-  }, [date, entries])
+  }, [date, entries, activeTemplateId])
+
+  // If the split behind this draft was deleted (e.g. on the Splits page), this resolves to null.
+  const activeTemplate = state.templates.find((t) => t.id === activeTemplateId) ?? null
 
   const prs = getPRs(state.workouts)
   const suggestions = getSuggestions(state.workouts)
+  const suggestionDetails = getSuggestionDetails(state.workouts)
   const addedIds = new Set(entries.map((e) => e.exerciseId))
 
   function addExercise(exerciseId) {
-    if (!exerciseId || addedIds.has(exerciseId)) return
-    setEntries((prev) => [...prev, { exerciseId, sets: [newSet()] }])
-    setShowPicker(false)
+    if (!exerciseId) return
+    // Picker stays open so several exercises can be added in a row.
+    setEntries((prev) =>
+      prev.some((e) => e.exerciseId === exerciseId)
+        ? prev
+        : [...prev, { exerciseId, sets: [newSet()] }]
+    )
   }
 
   function updateSet(ei, si, updated) {
@@ -68,6 +84,52 @@ export default function LogWorkout() {
     setEntries((prev) => prev.filter((_, i) => i !== ei))
   }
 
+  function loadTemplate(template) {
+    if (entries.length > 0 && !window.confirm('Replace current session?')) return
+    const built = buildEntriesFromTemplate(template, state.workouts, state.exercises)
+    const skipped = template.exercises.length - built.length
+    setEntries(built)
+    setActiveTemplateId(template.id)
+    setShowSplitPicker(false)
+    setShowPicker(false)
+    setNotice(
+      skipped > 0
+        ? `${skipped} ${skipped === 1 ? 'exercise' : 'exercises'} in this split no longer ${skipped === 1 ? 'exists' : 'exist'}.`
+        : ''
+    )
+  }
+
+  function openSave() {
+    setSplitName('')
+    setShowSave(true)
+  }
+
+  function saveAsNewSplit() {
+    const name = splitName.trim()
+    if (!name) return
+    const template = templateFromEntries(name, entries)
+    dispatch({ type: 'ADD_TEMPLATE', payload: template })
+    setActiveTemplateId(template.id)
+    setShowSave(false)
+    setSplitName('')
+  }
+
+  function updateActiveSplit() {
+    if (!activeTemplate) return
+    dispatch({
+      type: 'UPDATE_TEMPLATE',
+      payload: { ...activeTemplate, exercises: exercisesFromEntries(entries) },
+    })
+    setShowSave(false)
+  }
+
+  function resetSession() {
+    localStorage.removeItem(DRAFT_KEY)
+    setEntries([])
+    setActiveTemplateId(null)
+    setNotice('')
+  }
+
   function finishWorkout() {
     const doneSets = entries
       .map((e) => ({
@@ -79,96 +141,139 @@ export default function LogWorkout() {
       .filter((e) => e.sets.length > 0)
 
     if (!doneSets.length) return
-    dispatch({ type: 'ADD_WORKOUT', payload: { id: makeId(), date, exercises: doneSets } })
-    localStorage.removeItem(DRAFT_KEY)
-    setEntries([])
+    const workout = { id: makeId(), date, exercises: doneSets }
+    if (activeTemplate) workout.templateId = activeTemplate.id
+    dispatch({ type: 'ADD_WORKOUT', payload: workout })
+    resetSession()
   }
 
   function discardWorkout() {
-    localStorage.removeItem(DRAFT_KEY)
-    setEntries([])
+    resetSession()
     setDate(todayISO())
   }
 
   return (
     <div className={styles.page}>
-      <div className={styles.pageHeader}>
-        <div>
-          <h1 className={styles.title}>Today's Session</h1>
-          <p className={styles.date}>{formatDate(date)}</p>
+      <div className={styles.scrollContent}>
+        <div className={styles.pageHeader}>
+          <div>
+            <h1 className={styles.title}>Today's Session</h1>
+            <p className={styles.date}>{formatDate(date)}</p>
+          </div>
+          <label className={styles.calBtn} aria-label="Pick date">
+            <CalendarIcon />
+            <input
+              type="date"
+              value={date}
+              onChange={(e) => setDate(e.target.value)}
+              className={styles.hiddenDate}
+            />
+          </label>
         </div>
-        <label className={styles.calBtn} aria-label="Pick date">
-          <CalendarIcon />
-          <input
-            type="date"
-            value={date}
-            onChange={(e) => setDate(e.target.value)}
-            className={styles.hiddenDate}
-          />
-        </label>
+
+        {activeTemplate && (
+          <div className={styles.splitTag}>SPLIT · {activeTemplate.name.toUpperCase()}</div>
+        )}
+
+        {notice && <p className={styles.notice}>{notice}</p>}
+
+        {entries.map((entry, ei) => {
+          const ex = state.exercises.find((e) => e.id === entry.exerciseId)
+          const firstUndoneIdx = entry.sets.findIndex((s) => !s.done)
+          const currentPR = prs[entry.exerciseId]?.weight ?? 0
+
+          const suggested = suggestions.get(entry.exerciseId) ?? null
+
+          return (
+            <ExerciseCard
+              key={entry.exerciseId}
+              name={ex?.name ?? entry.exerciseId}
+              sets={entry.sets}
+              firstUndoneIdx={firstUndoneIdx}
+              currentPR={currentPR}
+              suggestedWeight={suggested}
+              onUpdateSet={(si, updated) => updateSet(ei, si, updated)}
+              onAddSet={() => addSet(ei)}
+              onRemove={() => removeExercise(ei)}
+            />
+          )
+        })}
+
+        {entries.length === 0 && !showPicker && (
+          <div className={styles.emptyState}>
+            <DumbbellEmptyIcon />
+            <p className={styles.emptyTitle}>Ready to train?</p>
+            <p className={styles.emptyHint}>Tap ADD EXERCISE to start building your session.</p>
+          </div>
+        )}
+
+        <button className={styles.addExBtn} onClick={() => setShowPicker(true)}>
+          <span className={styles.addExIcon}>⊕</span> ADD EXERCISE
+        </button>
+
+        {state.templates.length > 0 && (
+          <button className={styles.splitBtn} onClick={() => setShowSplitPicker(true)}>
+            START FROM SPLIT
+          </button>
+        )}
       </div>
 
-      {entries.map((entry, ei) => {
-        const ex = state.exercises.find((e) => e.id === entry.exerciseId)
-        const firstUndoneIdx = entry.sets.findIndex((s) => !s.done)
-        const currentPR = prs[entry.exerciseId]?.weight ?? 0
-
-        const suggested = suggestions.get(entry.exerciseId) ?? null
-
-        return (
-          <ExerciseCard
-            key={entry.exerciseId}
-            name={ex?.name ?? entry.exerciseId}
-            sets={entry.sets}
-            firstUndoneIdx={firstUndoneIdx}
-            currentPR={currentPR}
-            suggestedWeight={suggested}
-            onUpdateSet={(si, updated) => updateSet(ei, si, updated)}
-            onAddSet={() => addSet(ei)}
-            onRemove={() => removeExercise(ei)}
-          />
-        )
-      })}
-
-      {entries.length === 0 && !showPicker && (
-        <div className={styles.emptyState}>
-          <DumbbellEmptyIcon />
-          <p className={styles.emptyTitle}>Ready to train?</p>
-          <p className={styles.emptyHint}>Tap ADD EXERCISE to start building your session.</p>
-        </div>
-      )}
-
-      {showPicker && (
-        <select
-          className={styles.exSelect}
-          onChange={(e) => { addExercise(e.target.value); e.target.value = '' }}
-          defaultValue=""
-          autoFocus
-          onBlur={() => setShowPicker(false)}
-        >
-          <option value="" disabled>Select exercise…</option>
-          {state.exercises
-            .filter((ex) => !addedIds.has(ex.id))
-            .map((ex) => (
-              <option key={ex.id} value={ex.id}>{ex.name}</option>
-            ))}
-        </select>
-      )}
-
-      <button className={styles.addExBtn} onClick={() => setShowPicker((v) => !v)}>
-        <span className={styles.addExIcon}>⊕</span> ADD EXERCISE
-      </button>
-
       {entries.length > 0 && (
-        <>
+        <div className={styles.buttonBar}>
           <button className={styles.finishBtn} onClick={finishWorkout}>
             FINISH WORKOUT
+          </button>
+          <button className={styles.saveSplitBtn} onClick={openSave}>
+            SAVE AS SPLIT
           </button>
           <button className={styles.discardBtn} onClick={discardWorkout}>
             Discard workout
           </button>
-        </>
+        </div>
       )}
+
+      <ExercisePicker
+        open={showPicker}
+        exercises={state.exercises}
+        addedIds={addedIds}
+        suggestions={suggestionDetails}
+        onAdd={addExercise}
+        onClose={() => setShowPicker(false)}
+      />
+
+      <TemplatePicker
+        open={showSplitPicker}
+        templates={state.templates}
+        exercises={state.exercises}
+        onPick={loadTemplate}
+        onClose={() => setShowSplitPicker(false)}
+      />
+
+      <Sheet open={showSave} title="Save as split" onClose={() => setShowSave(false)}>
+        {activeTemplate && (
+          <>
+            <button className={styles.finishBtn} onClick={updateActiveSplit}>
+              UPDATE '{activeTemplate.name.toUpperCase()}'
+            </button>
+            <p className={styles.orLabel}>OR SAVE AS NEW</p>
+          </>
+        )}
+        <input
+          type="text"
+          placeholder="Split name (e.g. Push Day)"
+          value={splitName}
+          onChange={(e) => setSplitName(e.target.value)}
+          onKeyDown={(e) => e.key === 'Enter' && saveAsNewSplit()}
+          autoFocus={!activeTemplate}
+        />
+        <button
+          className={activeTemplate ? styles.saveSplitBtn : styles.finishBtn}
+          onClick={saveAsNewSplit}
+          disabled={!splitName.trim()}
+        >
+          SAVE NEW SPLIT
+        </button>
+      </Sheet>
     </div>
   )
 }

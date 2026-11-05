@@ -1,12 +1,8 @@
 import { useState, useMemo } from 'react'
 import { useApp } from '../context/AppContext'
+import { makeId } from '../utils/id'
+import { CATEGORY_ORDER, groupByCategory } from '../data/categories'
 import styles from './Exercises.module.css'
-
-function makeId() {
-  return `custom_${Date.now()}_${Math.random().toString(36).slice(2, 7)}`
-}
-
-const CATEGORY_ORDER = ['Chest', 'Back', 'Shoulders', 'Legs', 'Arms', 'Custom']
 
 function SearchIcon() {
   return (
@@ -40,34 +36,24 @@ export default function Exercises() {
   const [search, setSearch] = useState('')
   const [showAdd, setShowAdd] = useState(false)
   const [name, setName] = useState('')
+  const [category, setCategory] = useState('Custom')
 
   function addExercise() {
     const trimmed = name.trim()
     if (!trimmed) return
     dispatch({
       type: 'ADD_EXERCISE',
-      payload: { id: makeId(), name: trimmed, isDefault: false, category: 'Custom', createdAt: new Date().toISOString() },
+      payload: { id: makeId('custom_'), name: trimmed, isDefault: false, category, createdAt: new Date().toISOString() },
     })
     setName('')
+    setCategory('Custom')
     setShowAdd(false)
   }
 
-  const grouped = useMemo(() => {
+  const groups = useMemo(() => {
     const q = search.toLowerCase()
-    const groups = {}
-    for (const ex of state.exercises) {
-      if (q && !ex.name.toLowerCase().includes(q)) continue
-      const cat = ex.category || 'Custom'
-      if (!groups[cat]) groups[cat] = []
-      groups[cat].push(ex)
-    }
-    return groups
+    return groupByCategory(state.exercises.filter((ex) => !q || ex.name.toLowerCase().includes(q)))
   }, [state.exercises, search])
-
-  const categories = [
-    ...CATEGORY_ORDER.filter((c) => grouped[c]),
-    ...Object.keys(grouped).filter((c) => !CATEGORY_ORDER.includes(c)).sort(),
-  ]
 
   return (
     <div className={styles.page}>
@@ -92,8 +78,18 @@ export default function Exercises() {
             onKeyDown={e => e.key === 'Enter' && addExercise()}
             autoFocus
           />
+          <select
+            className={styles.categorySelect}
+            value={category}
+            onChange={e => setCategory(e.target.value)}
+            aria-label="Category"
+          >
+            {CATEGORY_ORDER.map(c => (
+              <option key={c} value={c}>{c}</option>
+            ))}
+          </select>
           <div className={styles.addFormActions}>
-            <button className={styles.cancelBtn} onClick={() => { setShowAdd(false); setName('') }}>
+            <button className={styles.cancelBtn} onClick={() => { setShowAdd(false); setName(''); setCategory('Custom') }}>
               CANCEL
             </button>
             <button className={styles.confirmBtn} onClick={addExercise}>
@@ -107,10 +103,10 @@ export default function Exercises() {
         </button>
       )}
 
-      {categories.map(cat => (
+      {groups.map(([cat, list]) => (
         <div key={cat} className={styles.group}>
           <div className={styles.groupLabel}>{cat.toUpperCase()}</div>
-          {grouped[cat].map(ex => (
+          {list.map(ex => (
             <div key={ex.id} className={`${styles.card} ${!ex.isDefault ? styles.customCard : ''}`}>
               <div className={styles.cardInfo}>
                 <div className={styles.cardName}>{ex.name.toUpperCase()}</div>
@@ -137,7 +133,7 @@ export default function Exercises() {
         </div>
       ))}
 
-      {categories.length === 0 && (
+      {groups.length === 0 && (
         <p className={styles.empty}>No exercises match your search.</p>
       )}
     </div>

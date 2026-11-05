@@ -6,6 +6,7 @@ import LogWorkout from './screens/LogWorkout'
 import History from './screens/History'
 import Progress from './screens/Progress'
 import Exercises from './screens/Exercises'
+import Splits from './screens/Splits'
 
 export default function App() {
   return (
@@ -16,6 +17,7 @@ export default function App() {
           <main className="main-content">
             <Routes>
               <Route path="/" element={<LogWorkout />} />
+              <Route path="/splits" element={<Splits />} />
               <Route path="/history" element={<History />} />
               <Route path="/progress" element={<Progress />} />
               <Route path="/exercises" element={<Exercises />} />
