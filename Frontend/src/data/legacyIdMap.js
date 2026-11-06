@@ -41,4 +41,13 @@ export const LEGACY_ID_MAP = {
 // the migration re-creates it as a custom exercise so its history isn't lost.
 export const REMOVED_DEFAULTS = [
   { id: 'legacy-tricep-machine', name: 'Tricep Machine', category: 'Tricep', equipment: 'Machine', type: 'Isolation' },
+  // Removed in schema v3
+  { id: 'lying-hammer-curl', name: 'Lying Hammer Curl', category: 'Bicep', equipment: 'Dumbbell', type: 'Isolation' },
+  { id: 'straight-bar-curl', name: 'Straight Bar Curl', category: 'Bicep', equipment: 'Barbell', type: 'Isolation' },
+  { id: 'rope-hammer-curl', name: 'Rope Hammer Curl', category: 'Bicep', equipment: 'Cable', type: 'Isolation' },
+  { id: 'behind-curl', name: 'Behind Curl', category: 'Bicep', equipment: 'Cable', type: 'Isolation' },
+  { id: 'lat-pullover', name: 'Lat Pullover', category: 'Back', equipment: 'Cable', type: 'Isolation' },
+  { id: 'face-pull', name: 'Face Pull', category: 'Back', equipment: 'Cable', type: 'Compound' },
+  { id: 'squat', name: 'Squat', category: 'Legs', equipment: 'Barbell', type: 'Compound' },
+  { id: 'rdl', name: 'RDL', category: 'Legs', equipment: 'Barbell', type: 'Compound' },
 ]
