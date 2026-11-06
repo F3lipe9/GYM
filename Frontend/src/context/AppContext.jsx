@@ -9,6 +9,7 @@ const initialState = {
   exercises: [],
   bodyweight: [],
   templates: [],
+  sizes: [],
 }
 
 function reducer(state, action) {
@@ -25,6 +26,16 @@ function reducer(state, action) {
       return { ...state, exercises: state.exercises.filter((e) => e.id !== action.payload) }
     case 'LOG_BODYWEIGHT':
       return { ...state, bodyweight: [...state.bodyweight, action.payload] }
+    case 'SAVE_SIZE': {
+      // One entry per date: merge into an existing one, otherwise append.
+      const exists = state.sizes.some((s) => s.date === action.payload.date)
+      return {
+        ...state,
+        sizes: exists
+          ? state.sizes.map((s) => (s.date === action.payload.date ? { ...s, ...action.payload } : s))
+          : [...state.sizes, action.payload],
+      }
+    }
     case 'ADD_TEMPLATE':
       return { ...state, templates: [...state.templates, action.payload] }
     case 'UPDATE_TEMPLATE':
@@ -49,13 +60,15 @@ export function AppProvider({ children }) {
     const exercises = [...DEFAULT_EXERCISES, ...customExercises]
     const bodyweight = load('bodyweight', [])
     const templates = load('templates', [])
-    dispatch({ type: 'INIT', payload: { workouts, exercises, bodyweight, templates } })
+    const sizes = load('sizes', [])
+    dispatch({ type: 'INIT', payload: { workouts, exercises, bodyweight, templates, sizes } })
   }, [])
 
   useEffect(() => { save('workouts', state.workouts) }, [state.workouts])
   useEffect(() => { save('exercises', state.exercises) }, [state.exercises])
   useEffect(() => { save('bodyweight', state.bodyweight) }, [state.bodyweight])
   useEffect(() => { save('templates', state.templates) }, [state.templates])
+  useEffect(() => { save('sizes', state.sizes) }, [state.sizes])
 
   return <AppContext.Provider value={{ state, dispatch }}>{children}</AppContext.Provider>
 }

@@ -1,0 +1,86 @@
+.list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+}
+
+.item + .item {
+  border-top: 1px solid var(--border);
+}
+
+.dateRow {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.8rem 0;
+  background: transparent;
+  color: var(--text);
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  border-radius: 0;
+}
+
+.chevron {
+  color: var(--text-muted);
+}
+
+.details {
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+  padding: 0 0 0.9rem;
+}
+
+.measure {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  grid-template-areas:
+    'label value'
+    'label diff';
+  column-gap: 0.75rem;
+  align-items: center;
+}
+
+.label {
+  grid-area: label;
+  color: var(--text-muted);
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.value,
+.missing {
+  grid-area: value;
+  text-align: right;
+  font-weight: 700;
+}
+
+.missing {
+  color: var(--text-muted);
+}
+
+.diff {
+  grid-area: diff;
+  text-align: right;
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+
+.diff:empty {
+  display: none;
+}
+
+.up {
+  color: var(--accent);
+}
+
+.down {
+  color: #ff6060;
+}
+
+.flat {
+  color: var(--text-muted);
+}

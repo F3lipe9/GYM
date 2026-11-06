@@ -242,3 +242,11 @@
   color: var(--text-muted);
   margin-top: 0.25rem;
 }
+
+/* ── Size ── */
+.sizeLatest {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: var(--text);
+  line-height: 1;
+}
